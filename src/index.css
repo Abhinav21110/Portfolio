@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 8 8% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 15 15% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 8 8% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 142 76% 36%;
+
+    --radius: 0.75rem;
+
+    /* Portfolio specific colors */
+    --electric: 195 100% 50%;
+    --electric-glow: 195 100% 60%;
+    --purple: 271 91% 65%;
+    --purple-glow: 271 91% 75%;
+    --orange: 25 95% 53%;
+    --orange-glow: 25 95% 63%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--electric)));
+    --gradient-electric: linear-gradient(135deg, hsl(var(--electric)), hsl(var(--purple)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--orange)), hsl(var(--primary)));
+    --gradient-glow: radial-gradient(circle at center, hsl(var(--primary) / 0.3), transparent 70%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 50px hsl(var(--primary) / 0.5);
+    --shadow-electric: 0 0 30px hsl(var(--electric) / 0.4);
+    --shadow-purple: 0 0 30px hsl(var(--purple) / 0.4);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Custom styles for enhanced animations */
+  .nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link.active {
+    color: hsl(var(--primary));
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--electric)));
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* Scrolling text styles */
+  .scrolling-text {
+    will-change: transform;
+  }
+
+  /* Enhanced glow effects */
+  .skill-card:hover {
+    filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.3));
+  }
+
+  .project-card:hover {
+    filter: drop-shadow(0 0 25px hsl(var(--electric) / 0.4));
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--electric)));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--electric)), hsl(var(--purple)));
+  }
+}
+
+/* Performance optimizations */
+.scrolling-text {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.skill-card, .project-card {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
