@@ -10,29 +10,38 @@ export function initializeAnimations() {
   // Set up GSAP defaults
   gsap.defaults({ ease: "power2.out", duration: 1 });
 
-  // Optimized background scrolling text animations
+  // Scroll-dependent background text animations
   gsap.to(".scrolling-text-0", {
-    xPercent: -100,
+    xPercent: -50,
     ease: "none",
-    duration: 15,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1,
+    },
   });
 
   gsap.to(".scrolling-text-1", {
-    xPercent: 100,
+    xPercent: 50,
     ease: "none",
-    duration: 18,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1.5,
+    },
   });
 
   gsap.to(".scrolling-text-2", {
-    xPercent: -100,
+    xPercent: -50,
     ease: "none",
-    duration: 22,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 2,
+    },
   });
 
   // Scrolling shapes animations
