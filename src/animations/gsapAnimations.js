@@ -523,8 +523,31 @@ export function initializeAnimations() {
         }
       });
     },
+    onEnterBack: (elements) => {
+      const id = elements[0].getAttribute('id');
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+        }
+      });
+    },
     onLeave: (elements) => {
       // Handle when leaving sections
+    },
+    onLeaveBack: (elements) => {
+      const id = elements[0].getAttribute('id');
+      const previousSection = elements[0].previousElementSibling;
+      if (previousSection && previousSection.tagName === 'SECTION') {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${previousSection.id}`) {
+            link.classList.add('active');
+          }
+        });
+      } else {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      }
     }
   });
 
