@@ -10,29 +10,38 @@ export function initializeAnimations() {
   // Set up GSAP defaults
   gsap.defaults({ ease: "power2.out", duration: 1 });
 
-  // Optimized background scrolling text animations
+  // Scroll-dependent background text animations
   gsap.to(".scrolling-text-0", {
-    xPercent: -100,
+    xPercent: -50,
     ease: "none",
-    duration: 15,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1,
+    },
   });
 
   gsap.to(".scrolling-text-1", {
-    xPercent: 100,
+    xPercent: 50,
     ease: "none",
-    duration: 18,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1.5,
+    },
   });
 
   gsap.to(".scrolling-text-2", {
-    xPercent: -100,
+    xPercent: -50,
     ease: "none",
-    duration: 22,
-    repeat: -1,
-    force3D: true
+    scrollTrigger: {
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 2,
+    },
   });
 
   // Scrolling shapes animations
@@ -514,8 +523,31 @@ export function initializeAnimations() {
         }
       });
     },
+    onEnterBack: (elements) => {
+      const id = elements[0].getAttribute('id');
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+        }
+      });
+    },
     onLeave: (elements) => {
       // Handle when leaving sections
+    },
+    onLeaveBack: (elements) => {
+      const id = elements[0].getAttribute('id');
+      const previousSection = elements[0].previousElementSibling;
+      if (previousSection && previousSection.tagName === 'SECTION') {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${previousSection.id}`) {
+            link.classList.add('active');
+          }
+        });
+      } else {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      }
     }
   });
 
