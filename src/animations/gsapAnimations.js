@@ -174,7 +174,7 @@ export function initializeAnimations() {
     start: "top top",
     end: "bottom bottom",
     onUpdate: self => {
-      gsap.to(bgElementsTl, { timeScale: 1 + self.getVelocity() / 200, duration: 0.3 });
+      gsap.to(bgElementsTl, { timeScale: 1 + self.getVelocity() / 80, duration: 0.3 });
     }
   });
 
