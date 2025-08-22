@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import ScrollingText from './ScrollingText';
+import WavyBorder from './WavyBorder';
+import Cube3D from './Cube3D';
 
 const Portfolio = () => {
   useEffect(() => {
@@ -42,6 +44,9 @@ const Portfolio = () => {
       {/* Background Scrolling Text */}
       <ScrollingText />
       
+      {/* Wavy Border Animation */}
+      <WavyBorder />
+      
       {/* Progress Indicator */}
       <div id="progress-bar" className="fixed top-0 left-0 h-1 bg-gradient-primary z-50"></div>
       
@@ -69,33 +74,46 @@ const Portfolio = () => {
           <div className="hero-bg-element absolute top-1/2 left-1/4 w-24 h-24 bg-purple/5 rounded-full blur-lg"></div>
           <div className="hero-bg-element absolute bottom-1/4 left-1/3 w-40 h-40 bg-orange/5 rounded-full blur-xl"></div>
         </div>
-        
-        <div className="text-center z-10 max-w-4xl mx-auto px-8">
-          <div id="hero-name" className="overflow-hidden">
-            <h1 className="text-7xl md:text-9xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
-              GOVIND
-            </h1>
-          </div>
-          <div id="hero-surname" className="overflow-hidden">
-            <h1 className="text-7xl md:text-9xl font-bold mb-8 bg-gradient-electric bg-clip-text text-transparent">
-              ABHINAV
-            </h1>
-          </div>
-          <div id="hero-tagline" className="mb-6">
-            <p className="text-xl md:text-2xl text-muted-foreground">
-              Neil Gogte Institute of Technology | Coder | Creator
-            </p>
-          </div>
-          <div id="hero-subtitle" className="mb-12">
-            <p className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto">
-              I love developing things & learning new things every day.
-            </p>
-          </div>
-          <div id="hero-cta" className="space-y-4">
-            <p className="text-base text-muted-foreground">2nd year student at Neil Gogte Institute of Technology</p>
+
+        {/* Hero content with Cube on the left and Name on the right */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8">
+          <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-8 md:gap-12">
+            {/* Cube area (left of name) */}
+            <div className="flex-shrink-0">
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72">
+                <Cube3D />
+              </div>
+            </div>
+
+            {/* Name and text area (shifted slightly to the right) */}
+            <div className="text-center md:text-left md:ml-4">
+              <div id="hero-name" className="overflow-hidden">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-4 bg-gradient-primary bg-clip-text text-transparent">
+                  GOVIND
+                </h1>
+              </div>
+              <div id="hero-surname" className="overflow-hidden">
+                <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-electric bg-clip-text text-transparent">
+                  ABHINAV
+                </h1>
+              </div>
+              <div id="hero-tagline" className="mb-4">
+                <p className="text-lg md:text-xl text-muted-foreground">
+                  Neil Gogte Institute of Technology | Coder | Creator
+                </p>
+              </div>
+              <div id="hero-subtitle" className="mb-8">
+                <p className="text-base md:text-lg text-foreground/80 max-w-2xl md:max-w-3xl">
+                  I love developing things & learning new things every day.
+                </p>
+              </div>
+              <div id="hero-cta" className="space-y-2">
+                <p className="text-sm md:text-base text-muted-foreground">2nd year student at Neil Gogte Institute of Technology</p>
+              </div>
+            </div>
           </div>
         </div>
-        
+
         {/* Enhanced Floating Elements */}
         <div className="absolute top-20 left-20 w-4 h-4 bg-primary rounded-full floating-dot shadow-glow"></div>
         <div className="absolute bottom-40 right-32 w-6 h-6 bg-electric rounded-full floating-dot shadow-electric"></div>
@@ -171,7 +189,21 @@ const Portfolio = () => {
           <div id="skills-container" className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {skills.map((skill, index) => (
               <div key={skill} className={`skill-card skill-card-${index} group`}>
-                <Card className="p-6 text-center hover:shadow-glow transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden">
+                <Card className="p-6 text-center hover:shadow-glow transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden transform-gpu perspective-1000 hover:rotate-y-12 hover:rotate-x-6 hover:scale-105"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                  }}
+                >
                   <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                   <div className="text-2xl mb-3 transition-transform duration-300 group-hover:scale-110">💻</div>
                   <h3 className="font-semibold text-foreground relative z-10">{skill}</h3>
@@ -194,7 +226,21 @@ const Portfolio = () => {
           <div id="projects-grid" className="grid md:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div key={project.title} className={`project-card project-card-${index}`}>
-                <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-500 bg-card/50 backdrop-blur-sm">
+                <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-500 bg-card/50 backdrop-blur-sm transform-gpu perspective-1000"
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 15;
+                    const rotateY = (centerX - x) / 15;
+                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                  }}
+                >
                   <div className="aspect-video bg-gradient-to-br from-primary/20 to-electric/20 flex items-center justify-center">
                     <div className="text-6xl opacity-50">🚀</div>
                   </div>
@@ -221,7 +267,21 @@ const Portfolio = () => {
           
           <div id="interests-container" className="grid md:grid-cols-2 gap-12">
             <div className="interest-item">
-              <Card className="p-8 bg-gradient-to-br from-electric/10 to-primary/10 border-electric/20 hover:shadow-electric transition-all duration-500">
+              <Card className="p-8 bg-gradient-to-br from-electric/10 to-primary/10 border-electric/20 hover:shadow-electric transition-all duration-500 transform-gpu perspective-1000"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  const centerX = rect.width / 2;
+                  const centerY = rect.height / 2;
+                  const rotateX = (y - centerY) / 20;
+                  const rotateY = (centerX - x) / 20;
+                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                }}
+              >
                 <div className="text-6xl mb-6">🎹</div>
                 <h3 className="text-2xl font-semibold mb-4 text-electric">Electronics & Music</h3>
                 <p className="text-foreground/80">
@@ -231,7 +291,21 @@ const Portfolio = () => {
             </div>
             
             <div className="interest-item">
-              <Card className="p-8 bg-gradient-to-br from-purple/10 to-orange/10 border-purple/20 hover:shadow-purple transition-all duration-500">
+              <Card className="p-8 bg-gradient-to-br from-purple/10 to-orange/10 border-purple/20 hover:shadow-purple transition-all duration-500 transform-gpu perspective-1000"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  const centerX = rect.width / 2;
+                  const centerY = rect.height / 2;
+                  const rotateX = (y - centerY) / 20;
+                  const rotateY = (centerX - x) / 20;
+                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                }}
+              >
                 <div className="text-6xl mb-6">🎤</div>
                 <h3 className="text-2xl font-semibold mb-4 text-purple">Singing</h3>
                 <p className="text-foreground/80">
