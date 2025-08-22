@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/card';
 import ScrollingText from './ScrollingText';
 import WavyBorder from './WavyBorder';
 import Cube3D from './Cube3D';
+import DisintegratedSphere from './DisintegratedSphere';
 
 const Portfolio = () => {
   useEffect(() => {
@@ -147,30 +148,8 @@ const Portfolio = () => {
             </div>
           </div>
           
-          <div className="space-y-8">
-            <Card id="fun-fact-1" className="p-6 bg-gradient-to-br from-primary/10 to-electric/10 border-primary/20">
-              <div className="flex items-start gap-4">
-                <div className="w-3 h-3 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  <h3 className="font-semibold text-primary mb-2">Musical Excellence</h3>
-                  <p className="text-foreground/80">
-                    10+ years experience in electronic keyboard (Initial to Grade 6, Trinity College London; all with distinction)
-                  </p>
-                </div>
-              </div>
-            </Card>
-            
-            <Card id="fun-fact-2" className="p-6 bg-gradient-to-br from-purple/10 to-orange/10 border-purple/20">
-              <div className="flex items-start gap-4">
-                <div className="w-3 h-3 bg-purple rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  <h3 className="font-semibold text-purple mb-2">Creative Expression</h3>
-                  <p className="text-foreground/80">
-                    Singing as a hobby enriches my creativity and brings balance to my technical pursuits.
-                  </p>
-                </div>
-              </div>
-            </Card>
+          <div className="flex items-center justify-center">
+            <DisintegratedSphere />
           </div>
         </div>
       </section>
