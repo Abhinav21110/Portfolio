@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
+import { gsap } from 'gsap';
 import { Card } from '@/components/ui/card';
 import ScrollingText from './ScrollingText';
 import WavyBorder from './WavyBorder';
 import Cube3D from './Cube3D';
 import DisintegratedSphere from './DisintegratedSphere';
+import CustomCursor from './CustomCursor';
 
 const Portfolio = () => {
   useEffect(() => {
@@ -42,6 +44,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      <CustomCursor />
       {/* Background Scrolling Text */}
       <ScrollingText />
       
@@ -168,19 +171,31 @@ const Portfolio = () => {
           <div id="skills-container" className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {skills.map((skill, index) => (
               <div key={skill} className={`skill-card skill-card-${index} group`}>
-                <Card className="p-6 text-center hover:shadow-glow transition-all duration-500 border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden transform-gpu perspective-1000 hover:rotate-y-12 hover:rotate-x-6 hover:scale-105"
+                <Card className="p-6 text-center hover:shadow-glow border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden transform-gpu perspective-1000 hover:animate-rgb-flicker-1"
                   onMouseMove={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 10;
-                    const rotateY = (centerX - x) / 10;
-                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                    const rotateX = (y - centerY) / 5; // Increased tilt
+                    const rotateY = (centerX - x) / 5; // Increased tilt
+                    gsap.to(e.currentTarget, { 
+                      rotationX: rotateX, 
+                      rotationY: rotateY, 
+                      scale: 1.05, 
+                      duration: 0.1, 
+                      ease: 'power1.out' 
+                    });
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    gsap.to(e.currentTarget, { 
+                      rotationX: 0, 
+                      rotationY: 0, 
+                      scale: 1, 
+                      duration: 0.5, 
+                      ease: 'power2.out' 
+                    });
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
@@ -205,19 +220,31 @@ const Portfolio = () => {
           <div id="projects-grid" className="grid md:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div key={project.title} className={`project-card project-card-${index}`}>
-                <Card className="group overflow-hidden border-border/50 hover:border-primary/50 transition-all duration-500 bg-card/50 backdrop-blur-sm transform-gpu perspective-1000"
+                <Card className="group overflow-hidden border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm transform-gpu perspective-1000 hover:animate-rgb-flicker-2"
                   onMouseMove={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    const rotateX = (y - centerY) / 15;
-                    const rotateY = (centerX - x) / 15;
-                    e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                    const rotateX = (y - centerY) / 8; // Increased tilt
+                    const rotateY = (centerX - x) / 8; // Increased tilt
+                    gsap.to(e.currentTarget, { 
+                      rotationX: rotateX, 
+                      rotationY: rotateY, 
+                      scale: 1.03, 
+                      duration: 0.1, 
+                      ease: 'power1.out' 
+                    });
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                    gsap.to(e.currentTarget, { 
+                      rotationX: 0, 
+                      rotationY: 0, 
+                      scale: 1, 
+                      duration: 0.5, 
+                      ease: 'power2.out' 
+                    });
                   }}
                 >
                   <div className="aspect-video bg-gradient-to-br from-primary/20 to-electric/20 flex items-center justify-center">
@@ -246,19 +273,31 @@ const Portfolio = () => {
           
           <div id="interests-container" className="grid md:grid-cols-2 gap-12">
             <div className="interest-item">
-              <Card className="p-8 bg-gradient-to-br from-electric/10 to-primary/10 border-electric/20 hover:shadow-electric transition-all duration-500 transform-gpu perspective-1000"
+              <Card className="p-8 bg-gradient-to-br from-electric/10 to-primary/10 border-electric/20 hover:shadow-electric transform-gpu perspective-1000 hover:animate-rgb-flicker-3"
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const x = e.clientX - rect.left;
                   const y = e.clientY - rect.top;
                   const centerX = rect.width / 2;
                   const centerY = rect.height / 2;
-                  const rotateX = (y - centerY) / 20;
-                  const rotateY = (centerX - x) / 20;
-                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                  const rotateX = (y - centerY) / 10; // Increased tilt
+                  const rotateY = (centerX - x) / 10; // Increased tilt
+                  gsap.to(e.currentTarget, { 
+                    rotationX: rotateX, 
+                    rotationY: rotateY, 
+                    scale: 1.02, 
+                    duration: 0.1, 
+                    ease: 'power1.out' 
+                  });
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                  gsap.to(e.currentTarget, { 
+                    rotationX: 0, 
+                    rotationY: 0, 
+                    scale: 1, 
+                    duration: 0.5, 
+                    ease: 'power2.out' 
+                  });
                 }}
               >
                 <div className="text-6xl mb-6">🎹</div>
@@ -270,19 +309,31 @@ const Portfolio = () => {
             </div>
             
             <div className="interest-item">
-              <Card className="p-8 bg-gradient-to-br from-purple/10 to-orange/10 border-purple/20 hover:shadow-purple transition-all duration-500 transform-gpu perspective-1000"
+              <Card className="p-8 bg-gradient-to-br from-purple/10 to-orange/10 border-purple/20 hover:shadow-purple transform-gpu perspective-1000 hover:animate-rgb-flicker-3"
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const x = e.clientX - rect.left;
                   const y = e.clientY - rect.top;
                   const centerX = rect.width / 2;
                   const centerY = rect.height / 2;
-                  const rotateX = (y - centerY) / 20;
-                  const rotateY = (centerX - x) / 20;
-                  e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                  const rotateX = (y - centerY) / 10; // Increased tilt
+                  const rotateY = (centerX - x) / 10; // Increased tilt
+                  gsap.to(e.currentTarget, { 
+                    rotationX: rotateX, 
+                    rotationY: rotateY, 
+                    scale: 1.02, 
+                    duration: 0.1, 
+                    ease: 'power1.out' 
+                  });
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                  gsap.to(e.currentTarget, { 
+                    rotationX: 0, 
+                    rotationY: 0, 
+                    scale: 1, 
+                    duration: 0.5, 
+                    ease: 'power2.out' 
+                  });
                 }}
               >
                 <div className="text-6xl mb-6">🎤</div>

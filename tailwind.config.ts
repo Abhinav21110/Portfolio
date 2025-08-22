@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -83,6 +84,9 @@ export default {
 				'slide-in': 'slideIn 0.8s ease-out',
 				'fade-in': 'fadeIn 0.6s ease-out',
 				'bounce-in': 'bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        'rgb-flicker-1': 'rgb-shadow-flicker-1 2s linear infinite',
+        'rgb-flicker-2': 'rgb-shadow-flicker-2 3s ease-in-out infinite',
+        'rgb-flicker-3': 'rgb-shadow-flicker-3 1.5s steps(1, end) infinite',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -123,9 +127,34 @@ export default {
 					'50%': { transform: 'scale(1.05)' },
 					'70%': { transform: 'scale(0.9)' },
 					'100%': { transform: 'scale(1)', opacity: '1' }
-				}
+				},
+        'rgb-shadow-flicker-1': {
+          '0%, 100%': { boxShadow: '0 0 15px 5px rgba(255, 0, 0, 0.4)' },
+          '20%': { boxShadow: '0 0 20px 7px rgba(0, 255, 0, 0.5)' },
+          '40%': { boxShadow: '0 0 15px 5px rgba(0, 0, 255, 0.4)' },
+          '60%': { boxShadow: '0 0 25px 8px rgba(255, 255, 0, 0.6)' },
+          '80%': { boxShadow: '0 0 15px 5px rgba(0, 255, 255, 0.4)' },
+        },
+        'rgb-shadow-flicker-2': {
+          '0%, 100%': { boxShadow: '0 0 20px 6px hsla(0, 100%, 50%, 0.5)' },
+          '33%': { boxShadow: '0 0 25px 8px hsla(120, 100%, 50%, 0.6)' },
+          '66%': { boxShadow: '0 0 20px 6px hsla(240, 100%, 50%, 0.5)' },
+        },
+        'rgb-shadow-flicker-3': {
+          '0%': { boxShadow: '0 0 10px 2px #ff00ff' },
+          '10%': { boxShadow: '0 0 12px 4px #00ffff' },
+          '20%': { boxShadow: '0 0 10px 2px #ffff00' },
+          '30%': { boxShadow: '0 0 15px 5px #ff00ff' },
+          '40%': { boxShadow: '0 0 10px 2px #00ffff' },
+          '50%': { boxShadow: '0 0 18px 6px #ffff00' },
+          '60%': { boxShadow: '0 0 10px 2px #ff00ff' },
+          '70%': { boxShadow: '0 0 20px 8px #00ffff' },
+          '80%': { boxShadow: '0 0 10px 2px #ffff00' },
+          '90%': { boxShadow: '0 0 22px 9px #ff00ff' },
+          '100%': { boxShadow: '0 0 10px 2px #00ffff' },
+        }
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [animate],
 } satisfies Config;

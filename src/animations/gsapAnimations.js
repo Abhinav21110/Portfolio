@@ -335,20 +335,19 @@ export function initializeAnimations() {
     }
   });
 
-  // Staggered project cards with better timing
+  // Staggered project cards with slide-in from right
   gsap.from(".project-card", {
-    y: 60,
+    x: 100, // Slide in from the right
     opacity: 0,
-    scale: 0.9,
-    duration: 0.6,
-    ease: "back.out(1.7)",
+    duration: 0.5, // Quicker animation
+    ease: "power2.out",
     stagger: {
-      amount: 0.8,
+      amount: 0.4, // Tighter stagger
       from: "start"
     },
     scrollTrigger: {
       trigger: "#projects-grid",
-      start: "top 75%",
+      start: "top 80%", // Start a bit earlier
       toggleActions: "play none none reverse"
     }
   });
