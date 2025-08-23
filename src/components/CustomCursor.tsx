@@ -41,12 +41,12 @@ const CustomCursor = () => {
         isColliding.current = true;
         gsap.to(followerEl, {
           scale: 0.8,
-          backgroundColor: 'hsl(300, 100%, 50%)',
+          backgroundColor: 'hsla(300, 100%, 50%, 0.5)',
           ease: 'power2.out',
           duration: 0.3,
           onComplete: () => {
             gsap.to(followerEl, {
-              backgroundColor: 'hsl(+=360, 100%, 50%)',
+              backgroundColor: 'hsla(+=360, 100%, 50%, 0.5)',
               repeat: -1,
               duration: 2,
               ease: 'linear'

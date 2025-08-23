@@ -270,57 +270,63 @@ export function initializeAnimations() {
     }
   });
 
-  // Skills section animations
-  gsap.from("#skills-heading", {
-    scale: 0.8,
-    opacity: 0,
-    duration: 1,
+  // Skills section horizontal scroll animation
+  const skillsTl = gsap.timeline({
     scrollTrigger: {
       trigger: "#skills",
-      start: "top 80%",
-      end: "top 50%",
-      scrub: 1
+      start: "top top",
+      end: "+=2000", // Adjust this value to control scroll duration
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1
     }
   });
 
-  // Animate skill cards with a single, optimized ScrollTrigger
-  gsap.from(".skill-card", {
-    y: 50,
-    scale: 0.9,
+  skillsTl.from("#skills-heading", {
+    scale: 0.8,
     opacity: 0,
-    duration: 0.5,
-    ease: "power2.out",
-    stagger: 0.1,
-    scrollTrigger: {
-      trigger: "#skills-container",
-      start: "top 85%",
-      toggleActions: "play none none none",
-    }
+    duration: 0.5
   });
 
-  // Optimized hover animations for skill cards
-  document.querySelectorAll('.skill-card').forEach((card) => {
-    // Add will-change for better performance
-    card.style.willChange = 'transform';
-    
-    card.addEventListener('mouseenter', () => {
-      gsap.to(card, {
-        scale: 1.05,
-        y: -8,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, {
-        scale: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-    });
+  skillsTl.to("#skills-horizontal-container", {
+    x: () => - (document.querySelector("#skills-horizontal-container").scrollWidth - window.innerWidth),
+    ease: "none"
+  }, "-=.2");
+
+  // Continuous rotation for the square
+  gsap.to(".moving-square", {
+    rotation: 360,
+    duration: 10,
+    repeat: -1,
+    ease: "none"
   });
+
+  // Color changing animation for both shapes
+  const movingShapesColorTl = gsap.timeline({ repeat: -1, yoyo: true });
+  movingShapesColorTl.to(".moving-object", {
+    backgroundColor: "#8a2be2", // BlueViolet
+    duration: 3,
+    ease: "power1.inOut"
+  }).to(".moving-object", {
+    backgroundColor: "#ff69b4", // HotPink
+    duration: 3,
+    ease: "power1.inOut"
+  }).to(".moving-object", {
+    backgroundColor: "#00ced1", // DarkTurquoise
+    duration: 3,
+    ease: "power1.inOut"
+  });
+
+  // Animate 2D objects during horizontal scroll
+  skillsTl.to(".moving-circle", {
+    x: "80vw",
+    ease: "power1.inOut"
+  }, "<");
+
+  skillsTl.to(".moving-square", {
+    x: "-70vw",
+    ease: "power1.inOut"
+  }, "<");
 
   // Projects section animations - Optimized timing
   gsap.from("#projects-heading", {

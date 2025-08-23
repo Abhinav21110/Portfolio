@@ -158,20 +158,20 @@ const Portfolio = () => {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="min-h-screen flex items-center py-20">
-        <div className="max-w-6xl mx-auto px-8">
-            <div id="skills-heading" className="text-center mb-16">
+      <section id="skills" className="min-h-screen py-20 overflow-hidden">
+        <div id="skills-container-wrapper" className="w-full h-full relative">
+          <div id="skills-heading" className="text-center mb-16">
             <h2 className="text-5xl md:text-6xl font-bold mb-4 relative">
               <span className="relative z-10">Skills</span>
               <div className="absolute inset-0 bg-gradient-electric bg-clip-text text-transparent blur-sm opacity-50">Skills</div>
             </h2>
             <div className="w-20 h-1 bg-gradient-electric mx-auto"></div>
           </div>
-          
-          <div id="skills-container" className="grid grid-cols-2 md:grid-cols-5 gap-6">
+
+          <div id="skills-horizontal-container" className="w-max flex items-center space-x-8 px-8">
             {skills.map((skill, index) => (
-              <div key={skill} className={`skill-card skill-card-${index} group`}>
-                <Card className="p-6 text-center hover:shadow-glow border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden transform-gpu perspective-1000 hover:animate-rgb-flicker-1"
+              <div key={skill} className={`skill-card skill-card-${index} group w-64 h-64`}>
+                <Card className="w-full h-full p-6 text-center hover:shadow-glow border-border/50 hover:border-primary/50 bg-card/50 backdrop-blur-sm relative overflow-hidden transform-gpu perspective-1000 hover:animate-rgb-flicker-1"
                   onMouseMove={(e) => {
                     const rect = e.currentTarget.getBoundingClientRect();
                     const x = e.clientX - rect.left;
@@ -199,13 +199,17 @@ const Portfolio = () => {
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                  <div className="text-2xl mb-3 transition-transform duration-300 group-hover:scale-110">💻</div>
-                  <h3 className="font-semibold text-foreground relative z-10">{skill}</h3>
+                  <div className="text-5xl mb-4 transition-transform duration-300 group-hover:scale-110">💻</div>
+                  <h3 className="text-2xl font-semibold text-foreground relative z-10">{skill}</h3>
                   <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 </Card>
               </div>
             ))}
           </div>
+
+          {/* 2D moving objects */}
+          <div className="moving-object moving-circle absolute top-[15%] left-[5%] w-12 h-12 bg-pink-400 rounded-full"></div>
+          <div className="moving-object moving-square absolute top-[65%] right-[10%] w-16 h-16 bg-gray-500"></div>
         </div>
       </section>
 
